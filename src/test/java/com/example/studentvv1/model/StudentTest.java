@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,7 +41,13 @@ class StudentTest {
     @Test
     void testViggoOneLine() {
         //assertEquals(1, studentRepository.findById(1).orElse(new Student()).getId());
-        assertEquals(1, 1);
+        Optional<Student> std = studentRepository.findById(1);
+        if (std.isPresent()) {
+            assertEquals(1, studentRepository.findById(1).orElse(new Student()).getId());
+        } else {
+            List<Student> lst = studentRepository.findAll();
+            assertEquals(1,lst.size());
+        }
     }
 
     @Test
